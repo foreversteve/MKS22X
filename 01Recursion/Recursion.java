@@ -33,7 +33,7 @@ public class Recursion {
 	}
 	public double sqrthelp(double n, double guess) {
 
-		if (abs(guess - Math.pow(n, 0.5)) <= n * 0.0000001) {
+		if (abs(guess*guess - n) <= n * 0.00001) {
 			return guess;
 		}
 		return sqrthelp(n, (n / guess + guess) / 2);
