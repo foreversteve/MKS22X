@@ -108,16 +108,7 @@ public class QueenBoard {
 
 
 	 public boolean solve() {
-		for (int i = 0; i < length; i++) {
-			for (int k = 0; k < length; k++) {
-				if (addQueens(i,k,1,i,k)) {
-					System.out.println(toString());
-				}
-				clearBoard();
-			}
-		}
-
-		return cnt == length;
+	     return addQueens(0);
 	}
 
 
@@ -131,45 +122,34 @@ public class QueenBoard {
 		}
 		return false;
 	}
-	private boolean addQueens(int r, int c, int count,int r2, int c2) {
-
-		if (addQueen(r,c)) {
-			if (!checkSpace()) {
-				if (count == length ) {
-					cnt = count;
-					return true;
-				}
-				removeQueen(r,c);
-				return false;
-			}
-
-			for (int i = 0; i < length; i++) {
-				for (int k = 0; k < length; k++) {
-					if (board[i][k] == 0) {
-						if (addQueens(i,k,count+1,r,c)) {
-							return true;
-						}
+	private boolean addQueens(int col) {
+	    if (col >= length){
+	    		System.out.println(toString());
+	    		return true;
+	    }
+	    for (int i = 0; i < length; i++){
+	    		if (addQueen(i,col)){
+	    			if (addQueens(i+1)){
+	    				return true;
+	    			}
+	    			removeQueen(i,col);
+	    		}
+	    }
+	    return false;
 
 
-					}
-				}
-			}
-			removeQueen(r,c);
-	     
-		}
 
 
-		return false;
 	}
 
 	public static void main(String[] args) {
-		QueenBoard a = new QueenBoard(8);
+		QueenBoard a = new QueenBoard(4);
 		//a.addQueen(0,0);
 		//a.addQueen(1, 2);
 		//System.out.println(a.checkSpace());
 		//System.out.println(a.testToString());
 		//System.out.println(a.addQueens(0,0,1,0,0));
-		a.solve();
+		System.out.println(a.solve());
 		//System.out.println(a.cnt);
 		//System.out.println(a.addQueen(1, 0));
 		//System.out.println(a.toString());
