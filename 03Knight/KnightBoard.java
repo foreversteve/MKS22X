@@ -78,7 +78,8 @@ public class KnightBoard {
 		return false;
 	}
 	public boolean solve(int startingRow, int startingCol) {
-		return solveH(startingRow,startingCol,1);
+		board[startingRow][startingCol] = 1;
+		return solveH(startingRow,startingCol,2);
 	}
 
 	public void test(int row,int col) {
@@ -99,7 +100,7 @@ public class KnightBoard {
 		for (int i = 0; i < board.length; i++) {
 			for (int k = 0; k < board[0].length; k++) {
 				if (solve(i,k)) {
-					return 1;
+					System.out.println(this);
 				}
 			}
 		}
@@ -110,7 +111,8 @@ public class KnightBoard {
 	public static void main(String[] args) {
 		KnightBoard a = new KnightBoard(6,6);
 		//a.test(2, 2);
-		System.out.println(a.countSolutions(0, 0));
-		System.out.println(a);
+		//a.countSolutions(0, 0);
+		System.out.println(a.solve(0,0));
+		//System.out.println(a);
 	}
 }
