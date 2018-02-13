@@ -107,11 +107,31 @@ public class QueenBoard {
 	}
 
 
-	 public boolean solve() {
+	public boolean solve() {
+		for (int i = 0; i < board.length; i++) {
+			for (int k = 0; k < board.length; k++) {
+				if (board[i][k] != 0) {
+					throw new IllegalStateException();
+				}
+			}
+		}
 	     return addQueens(0);
 	}
+	private boolean addQueens(int col) {
+	    if (col >=length){
+	    		return true;
+	    }
+	    for (int i = 0; i < length; i++){
+	    		if (addQueen(i,col)){
+	    			if (addQueens(col+1)){
+	    				return true;
+	    			}
 
-
+	    			removeQueen(i,col);
+	    		}
+	    }
+	    return false;
+	}
 	private boolean checkSpace() {
 		for (int i = 0; i < length; i++) {
 			for (int k = 0; k < length; k++) {
@@ -122,36 +142,31 @@ public class QueenBoard {
 		}
 		return false;
 	}
-	private boolean addQueens(int col) {
-	    if (col >= length){
-	    		System.out.println(toString());
-	    		return true;
-	    }
-	    for (int i = 0; i < length; i++){
-	    		if (addQueen(i,col)){
-	    			if (addQueens(i+1)){
-	    				return true;
-	    			}
-	    			removeQueen(i,col);
-	    		}
-	    }
-	    return false;
 
-
-
-
+	public int countSolutions() {
+		for (int i = 0; i < board.length; i++) {
+			for (int k = 0; k < board.length; k++) {
+				if (board[i][k] != 0) {
+					throw new IllegalStateException();
+				}
+			}
+		}
+		cnt = 0;
+		countQueens(0);
+		return cnt;
 	}
+	public void countQueens(int col) {
+		if (col >=length){
+    			cnt+=1;
+    			return;
+		}
+		for (int i = 0; i < length; i++){
+			if (addQueen(i,col)){
+				countQueens(col+1);
+				removeQueen(i,col);
+    			}
 
-	public static void main(String[] args) {
-		QueenBoard a = new QueenBoard(4);
-		//a.addQueen(0,0);
-		//a.addQueen(1, 2);
-		//System.out.println(a.checkSpace());
-		//System.out.println(a.testToString());
-		//System.out.println(a.addQueens(0,0,1,0,0));
-		System.out.println(a.solve());
-		//System.out.println(a.cnt);
-		//System.out.println(a.addQueen(1, 0));
-		//System.out.println(a.toString());
+		}
+		return;
 	}
 }
