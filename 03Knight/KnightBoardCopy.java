@@ -1,9 +1,10 @@
-public class KnightBoard {
+
+public class KnightBoardCopy {
 	private int[][] board;
 	private final int[] inc1 = {1,-1};
 	private final int[] inc2 = {2,-2};
 
-	public KnightBoard(int startingRows,int startingCols) {
+	public KnightBoardCopy(int startingRows,int startingCols) {
 		board = new int[startingRows][startingCols];
 		for (int i = 0; i < startingRows; i++) {
 			for (int k = 0; k < startingCols; k++) {
@@ -34,7 +35,7 @@ public class KnightBoard {
 		}
 		return ans;
 	}
-
+  
 	public boolean moveKnight(int row, int col, int move) {
 		if (board[row][col] == 0) {
 			board[row][col] = move;
@@ -108,11 +109,32 @@ public class KnightBoard {
 
 	}
 
+    public void generateBoard(){
+		for (int row = 0; row < board.length; row++) {
+			for (int col = 0; col < board[0].length; col++) {
+			       	for (int k : inc1) {
+				    for (int j : inc2) {
+					try {
+					    board[row+j][col+k] += 1;
+					    board[row+k][col+j] += 1;
+					}
+					catch(ArrayIndexOutOfBoundsException e) {
+
+					}
+				    }
+				}
+					    
+			}
+		}
+    }
+		
 	public static void main(String[] args) {
-		KnightBoard a = new KnightBoard(7,7);
+		KnightBoardCopy a = new KnightBoardCopy(5,5);
+		a.generateBoard();
+		
 		//a.test(2, 2);
-		a.countSolutions(0, 0);
+		//a.countSolutions(0, 0);
 		//System.out.println(a.solve(0,0));
-		//System.out.println(a);
+		System.out.println(a);
 	}
 }
