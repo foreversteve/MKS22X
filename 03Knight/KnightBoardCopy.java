@@ -1,6 +1,7 @@
 
 public class KnightBoardCopy {
 	private int[][] board;
+    private int cnt;
 	private final int[] inc1 = {1,-1};
 	private final int[] inc2 = {2,-2};
 
@@ -11,6 +12,7 @@ public class KnightBoardCopy {
 				board[i][k] = 0;
 			}
 		}
+		cnt = 0;
 	}
 
 
@@ -61,17 +63,20 @@ public class KnightBoardCopy {
 						moveKnightBack(row+k,col+j);
 					}
 
-					if (moveKnight(row+j,col+k,level)) {
+				}
+				catch(ArrayIndexOutOfBoundsException e) {
+
+				}
+				try{
+				    	if (moveKnight(row+j,col+k,level)) {
 						if (solveH(row+j,col+k,level+1)) {
 							return true;
 						}
 						moveKnightBack(row+j,col+k);
 					}
-
-
 				}
-				catch(ArrayIndexOutOfBoundsException e) {
-
+				catch(ArrayIndexOutOfBoundsException e){
+				    
 				}
 
 			}
@@ -98,17 +103,47 @@ public class KnightBoardCopy {
 		}
 	}
 	public int countSolutions(int startingRow, int startingCol) {
-		for (int i = 0; i < board.length; i++) {
-			for (int k = 0; k < board[0].length; k++) {
-				if (solve(i,k)) {
-					System.out.println(this);
-				}
-			}
-		}
-		return 0;
+	    cnt = 0;
+	    board[startingRow][startingCol] = 1;
+	    countSolutionH(startingRow,startingCol,2);
+	    return cnt;
 
 	}
+    public void countSolutionH(int row, int col, int level){
+		if (level == board.length * board[0].length) {
+		    cnt+=1;
+		    return;
+		}
+		for (int k : inc1) {
+			for (int j : inc2) {
+				try {
+					if (moveKnight(row+k,col+j,level)) {
+					    countSolutionH(row+k,col+j,level+1);
+					    
+						    
+						
+					    moveKnightBack(row+k,col+j);
+					}
 
+				}
+				catch(ArrayIndexOutOfBoundsException e) {
+
+				}
+				try{
+				    if (moveKnight(row+j,col+k,level)) {
+					countSolutionH(row+j,col+k,level+1);
+					     
+					moveKnightBack(row+j,col+k);
+				    }
+				}
+				catch(ArrayIndexOutOfBoundsException e){
+				    
+				}
+
+			}
+		}
+		return;
+    }
     public void generateBoard(){
 		for (int row = 0; row < board.length; row++) {
 			for (int col = 0; col < board[0].length; col++) {
@@ -130,10 +165,10 @@ public class KnightBoardCopy {
 		
 	public static void main(String[] args) {
 		KnightBoardCopy a = new KnightBoardCopy(5,5);
-		a.generateBoard();
+		//a.generateBoard();
 		
 		//a.test(2, 2);
-		//a.countSolutions(0, 0);
+		System.out.println(a.countSolutions(0, 0));
 		//System.out.println(a.solve(0,0));
 		System.out.println(a);
 	}
