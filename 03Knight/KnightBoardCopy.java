@@ -37,7 +37,7 @@ public class KnightBoardCopy {
 		}
 		return ans;
 	}
-  
+
 	public boolean moveKnight(int row, int col, int move) {
 		if (board[row][col] == 0) {
 			board[row][col] = move;
@@ -76,7 +76,7 @@ public class KnightBoardCopy {
 					}
 				}
 				catch(ArrayIndexOutOfBoundsException e){
-				    
+
 				}
 
 			}
@@ -110,7 +110,7 @@ public class KnightBoardCopy {
 
 	}
     public void countSolutionH(int row, int col, int level){
-		if (level == board.length * board[0].length) {
+		if (level > board.length * board[0].length) {
 		    cnt+=1;
 		    return;
 		}
@@ -119,9 +119,9 @@ public class KnightBoardCopy {
 				try {
 					if (moveKnight(row+k,col+j,level)) {
 					    countSolutionH(row+k,col+j,level+1);
-					    
-						    
-						
+
+
+
 					    moveKnightBack(row+k,col+j);
 					}
 
@@ -132,12 +132,12 @@ public class KnightBoardCopy {
 				try{
 				    if (moveKnight(row+j,col+k,level)) {
 					countSolutionH(row+j,col+k,level+1);
-					     
+
 					moveKnightBack(row+j,col+k);
 				    }
 				}
 				catch(ArrayIndexOutOfBoundsException e){
-				    
+
 				}
 
 			}
@@ -158,15 +158,15 @@ public class KnightBoardCopy {
 					}
 				    }
 				}
-					    
+
 			}
 		}
     }
-		
+
 	public static void main(String[] args) {
 		KnightBoardCopy a = new KnightBoardCopy(5,5);
 		//a.generateBoard();
-		
+
 		//a.test(2, 2);
 		System.out.println(a.countSolutions(0, 0));
 		//System.out.println(a.solve(0,0));
