@@ -39,6 +39,9 @@ public class Recursion {
 		return sqrthelp(n, (n / guess + guess) / 2);
 	}
 	public double sqrt(double n) {
+		if (n < 0){
+	    throw new IllegalArgumentException();
+		}
 		return sqrthelp(n,n/2);
 	}
 	public static void main(String[] args) {
