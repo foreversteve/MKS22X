@@ -6,10 +6,13 @@ import java.util.Scanner;
 
 public class Maze {
 
-	private char[][] maze;
 	boolean animate;
+
+	private char[][] maze;
 	int length;
 	int width;
+
+	int[] inc = {-1,1};
 
 	public Maze(String fileName) {
 		 try {
@@ -27,6 +30,7 @@ public class Maze {
 			 }
 			 maze = new char[width][length];
 
+
 			 int c = 0;
 			 Scanner info = new Scanner(text);
 
@@ -34,6 +38,7 @@ public class Maze {
 				 String line = info.nextLine();
 				 for (int i = 0; i < length; i ++) {
 					 maze[c][i] = line.charAt(i);
+
 					 //System.out.println(c);
 					 //System.out.println(i);
 
@@ -44,8 +49,8 @@ public class Maze {
 			 if (!check()) {
 				 throw new IllegalStateException();
 			 }
-			 animate = false;
 
+			 animate = false;
 		 }
 		 catch(FileNotFoundException e) {
 			 System.out.println("No such file exist");
@@ -105,7 +110,7 @@ public class Maze {
     		for (int i = 0; i < width; i++) {
 			for (int k = 0; k < length; k++) {
 				if (maze[i][k] == 'S') {
-					maze[i][k] = ' ';
+					maze[i][k] = '@';
 					return solve(i,k,1);
 				}
 			}
@@ -115,23 +120,84 @@ public class Maze {
     		return -1;
     }
 
+    private boolean move(int row, int col) {
+    		if (maze[row][col] == 'E') {
+			return true;
+		}
+
+    		if (maze[row][col] != ' ' ) {
+    			return false;
+    		}
+
+    		maze[row][col] = '@';
+    		return true;
+    }
+
+    private void moveBack(int row,int col) {
+    		if (maze[row][col] == '@') {
+    			maze[row][col] = '.';
+    		}
+    }
     private int solve(int row, int col, int steps){ //you can add more parameters since this is private
 
         //automatic animation! You are welcome.
         if(animate){
             clearTerminal();
             System.out.println(this);
+            System.out.println(steps);
             wait(20);
         }
-
         //COMPLETE SOLVE
-        return -1; //so it compiles
+
+        if (maze[row][col] == 'E') {
+        		return steps;
+        }
+        for (int i : inc) {
+        		if (move(row,col+i)) {
+        			int temp = solve(row,col+i,steps+1);
+        			if (temp != -1){
+        				return temp;
+        			}
+        			moveBack(row,col+i);
+        		}
+
+        		if (move(row+i,col)) {
+        			int temp = solve(row+i,col,steps+1);
+        			if (temp != -1){
+        				return temp;
+        			}
+        			moveBack(row+i,col);
+        		}
+
+        }
+
+        	return -1; //so it compiles
+    	}
+
+    public void test() {
+
     }
 
-
 	 public static void main(String args[]) throws FileNotFoundException {
+
 		 Maze a = new Maze("data3.dat");
+		 //System.out.println(a);
+		 a.animate = true;
+
+		 System.out.println(a.solve());
+		// System.out.println(a);
+		 /*System.out.println(a);
+		 for (int i :a.inc) {
+			 a.move(1, 1+i);
+			 a.move(1+i, 1);
+		 }
+
+		 a.moveBack(1, 3);
+
 		 System.out.println(a);
+		 */
+
+
 	 }
 
 }
