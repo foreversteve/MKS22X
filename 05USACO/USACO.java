@@ -1,3 +1,4 @@
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
@@ -31,13 +32,18 @@ public class USACO {
     				String temp = sc.nextLine();
     				//System.out.println(temp);
     				if (cnt == 0) {
-    					rowT = Integer.parseInt(temp.substring(0,3));
+    					String arr[] = temp.split(" ");
+    					rowT = Integer.parseInt(arr[0]);
+    					colT = Integer.parseInt(arr[1]);
+    					time = Integer.parseInt(arr[2]);
+    					/*
+    					rowT = Integer.parseInt(temp.substring(0,2));
     					//System.out.println(rowT);
-    					colT = Integer.parseInt(temp.substring(4,7));
+    					colT = Integer.parseInt(temp.substring(3,5));
     					//System.out.println(colT);
-    					time = Integer.parseInt(temp.substring(8,10));
+    					time = Integer.parseInt(temp.substring(6,8));
     					//System.out.println(time);
-
+    					*/
     					grid = new char[rowT][colT];
     				}
     				else {
@@ -48,13 +54,14 @@ public class USACO {
     					}
     				}
     				if (cnt == rowT+1) {
-    					r1 = Integer.parseInt(temp.substring(0,2)) - 1;
+    					String arg[] = temp.split(" ");
+    					r1 = Integer.parseInt(arg[0]) - 1;
     					//System.out.println(r1);
-    					c1 = Integer.parseInt(temp.substring(3,5)) - 1;
+    					c1 = Integer.parseInt(arg[1]) - 1;
     					//System.out.println(c1);
-    					r2 = Integer.parseInt(temp.substring(6,8)) - 1;
+    					r2 = Integer.parseInt(arg[2]) - 1;
     					//System.out.println(r2);
-    					c2 = Integer.parseInt(temp.substring(9,11)) - 1;
+    					c2 = Integer.parseInt(arg[3]) - 1;
     					//System.out.println(c2);
     				}
     				cnt+=1;
@@ -127,14 +134,11 @@ public class USACO {
     }
 
     public static void main(String args[]) {
-				//System.out.println(USACO.silver("ctravel.1"));
-				//System.out.println(USACO.silver("ctravel.2"));
-				//System.out.println(USACO.silver("ctravel.3"));
-				System.out.println(USACO.silver("ctravel.4"));
-				//System.out.println(USACO.silver("ctravel.9"));
-
-				// File reading (right now) specific to file4
-
+			System.out.println(USACO.silver("ctravel.1"));
+			System.out.println(USACO.silver("ctravel.2"));
+			System.out.println(USACO.silver("ctravel.3"));
+			System.out.println(USACO.silver("ctravel.4"));
+    	System.out.println(USACO.silver("ctravel.9"));
     		//System.out.println(Arrays.deepToString(USACO.values));
     		//System.out.println(USACO.toStringg());
     }

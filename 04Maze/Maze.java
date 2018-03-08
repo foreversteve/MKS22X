@@ -150,7 +150,7 @@ public class Maze {
         //COMPLETE SOLVE
 
         if (maze[row][col] == 'E') {
-        		return steps;
+        		return steps-1;
         }
         for (int i : inc) {
         		if (move(row,col+i)) {
