@@ -14,7 +14,13 @@ public class USACO {
 	public static int bronze(String filename) {
 		return -1;
 	}
-
+	public static String toStringg() {
+		String ans="";
+		for (int i=0;i<rowT;i++) {
+			ans+= Arrays.deepToString(values[i]) + "\n";
+		}
+		return ans;
+	}
     public static int silver(String filename) {
     		File file = new File(filename);
     		try {
@@ -25,11 +31,11 @@ public class USACO {
     				String temp = sc.nextLine();
     				//System.out.println(temp);
     				if (cnt == 0) {
-    					rowT = Integer.parseInt(temp.substring(0,1));
+    					rowT = Integer.parseInt(temp.substring(0,3));
     					//System.out.println(rowT);
-    					colT = Integer.parseInt(temp.substring(2,3));
+    					colT = Integer.parseInt(temp.substring(4,7));
     					//System.out.println(colT);
-    					time = Integer.parseInt(temp.substring(4,5));
+    					time = Integer.parseInt(temp.substring(8,10));
     					//System.out.println(time);
 
     					grid = new char[rowT][colT];
@@ -42,13 +48,13 @@ public class USACO {
     					}
     				}
     				if (cnt == rowT+1) {
-    					r1 = Integer.parseInt(temp.substring(0,1)) - 1;
+    					r1 = Integer.parseInt(temp.substring(0,2)) - 1;
     					//System.out.println(r1);
-    					c1 = Integer.parseInt(temp.substring(2,3)) - 1;
+    					c1 = Integer.parseInt(temp.substring(3,5)) - 1;
     					//System.out.println(c1);
-    					r2 = Integer.parseInt(temp.substring(4,5)) - 1;
+    					r2 = Integer.parseInt(temp.substring(6,8)) - 1;
     					//System.out.println(r2);
-    					c2 = Integer.parseInt(temp.substring(6,7)) - 1;
+    					c2 = Integer.parseInt(temp.substring(9,11)) - 1;
     					//System.out.println(c2);
     				}
     				cnt+=1;
@@ -60,6 +66,8 @@ public class USACO {
 
     			values = new int[rowT][colT] [time+colT];
 
+    			values[r1][c1] [0] = 1;
+    			/*
     			for (int i = 0; i < rowT; i++) {
     				for (int k = 0; k < colT; k++) {
     					for (int j = 0; j < time+colT; j++) {
@@ -69,6 +77,8 @@ public class USACO {
     					values[i][k] [Math.abs(r1-i) + Math.abs(c1-k)] = 1;
     				}
     			}
+    			*/
+
     			//System.out.println(Arrays.deepToString(values));
     			return silverH();
     		}
@@ -82,10 +92,10 @@ public class USACO {
     		for (int i = 0; i < time; i++) {
     			for (int k = 0; k < rowT; k++) {
     				for (int j = 0; j < colT; j++) {
-    					if (values[k][j] [i] != -1 ) {
-    						values[k][j] [i+2] = sumNeighbors(k,j,i+1);
+
+    					values[k][j] [i+1] = sumNeighbors(k,j,i);
     						//System.out.println(Arrays.deepToString(values));
-    					}
+
     				}
     			}
     		}
@@ -97,7 +107,7 @@ public class USACO {
     		int sum = 0;
     		for (int k : temp) {
     			try {
-    				if (grid[row+k][col] != '*') {
+    				if (grid[row+k][col] != '*' ) {
     					sum += values[row+k][col] [value];
     				}
     			}
@@ -117,7 +127,15 @@ public class USACO {
     }
 
     public static void main(String args[]) {
-    		System.out.println(USACO.silver("ctravel.1"));
-    		System.out.println(Arrays.deepToString(USACO.values));
+				//System.out.println(USACO.silver("ctravel.1"));
+				//System.out.println(USACO.silver("ctravel.2"));
+				//System.out.println(USACO.silver("ctravel.3"));
+				System.out.println(USACO.silver("ctravel.4"));
+				//System.out.println(USACO.silver("ctravel.9"));
+
+				// File reading (right now) specific to file4
+
+    		//System.out.println(Arrays.deepToString(USACO.values));
+    		//System.out.println(USACO.toStringg());
     }
 }
