@@ -1,4 +1,5 @@
 
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
@@ -6,6 +7,12 @@ import java.util.Scanner;
 
 public class USACO {
 
+	// Bronze Variable
+
+	static int rowL = 0, colL = 0, elevation = 0, numDig = 0;
+	static int[][] lake;
+
+	// Silver Variables
 	static char[][] grid;
 	static int[] [][] values;
 
@@ -13,8 +20,85 @@ public class USACO {
 	static int r1 = 0,c1 = 0,r2 = 0,c2 = 0;
 
 	public static int bronze(String filename) {
-		return -1;
+		File file = new File(filename);
+		try {
+			Scanner s = new Scanner(file);
+
+			int cnt = 0;
+			while (s.hasNextLine()) {
+				String temp = s.nextLine();
+				//System.out.println(temp);
+				if (cnt == 0) {
+
+					String arr[] = temp.split(" ");
+					rowL = Integer.parseInt(arr[0]);
+					colL = Integer.parseInt(arr[1]);
+					elevation = Integer.parseInt(arr[2]);
+					numDig = Integer.parseInt(arr[3]);
+
+					lake = new int[rowL][colL];
+				}
+				if (cnt <= rowL && cnt != 0) {
+
+					String argg[] = temp.split(" ");
+					for (int i = 0; i < colL; i++) {
+						lake[cnt-1][i] = Integer.parseInt(argg[i]);
+
+					}
+				}
+				if (cnt > rowL) {
+
+					String arrs[] = temp.split(" ");
+					stomp(Integer.parseInt(arrs[0]),Integer.parseInt(arrs[1]),Integer.parseInt(arrs[2]));
+				}
+
+				cnt+=1;
+			}
+		}
+		catch(FileNotFoundException e) {
+			System.out.println("File Not Found");
+		}
+		int volume = 0;
+		for (int i= 0; i < rowL;i++) {
+			for (int k = 0; k < colL; k++) {
+				if (elevation-lake[i][k] > 0) {
+					volume += elevation-lake[i][k];
+				}
+			}
+		}
+		return volume * 72 * 72;
+
 	}
+
+	public static void stomp(int r, int c, int d) {
+		int value = 0;
+		for (int i= 0; i < 3;i++) {
+			for (int k = 0; k < 3 ; k++) {
+				try{
+					if (lake[r+i-1][c+k-1] > value) {
+						value = lake[r+i-1][c+k-1];
+					}
+				}
+				catch(ArrayIndexOutOfBoundsException e) {
+
+				}
+			}
+		}
+		value -= d;
+		for (int i= 0; i < 3;i++) {
+			for (int k = 0; k < 3 ; k++) {
+				try{
+					if (lake[r+i-1][c+k-1] > value) {
+						lake[r+i-1][c+k-1] = value;
+					}
+				}
+				catch(ArrayIndexOutOfBoundsException e) {
+
+				}
+			}
+		}
+	}
+
 	public static String toStringg() {
 		String ans="";
 		for (int i=0;i<rowT;i++) {
@@ -134,11 +218,8 @@ public class USACO {
     }
 
     public static void main(String args[]) {
-			System.out.println(USACO.silver("ctravel.1"));
-			System.out.println(USACO.silver("ctravel.2"));
-			System.out.println(USACO.silver("ctravel.3"));
-			System.out.println(USACO.silver("ctravel.4"));
-    	System.out.println(USACO.silver("ctravel.9"));
+    		System.out.println(USACO.bronze("lake.2"));
+    		System.out.println(USACO.silver("ctravel.10"));
     		//System.out.println(Arrays.deepToString(USACO.values));
     		//System.out.println(USACO.toStringg());
     }
