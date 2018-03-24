@@ -1,4 +1,5 @@
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class Merge {
@@ -12,7 +13,8 @@ public class Merge {
 	}
 
 	public static void msort(int[] data,int[] temp, int start, int end) {
-		if (start>=end) {
+		if (start>=end || end - start < 80 ) {
+			insertionSort(temp,start,end);
 			return;
 		}
 		int mid = (start+end)/2;
@@ -61,12 +63,47 @@ public class Merge {
 
 	}
 
+	public static void insertionSort(int[] data, int start, int end) {
+		int temp;
+		if (end-start <= 1) {
+			return;
+		}
+		if (data[start]>data[start+1]) {
+			temp = data[start];
+			data[start] = data[start+1];
+			data[start+1]= temp;
+		}
+		//System.out.println(Arrays.toString(data));
+
+		for (int i = start+2; i <= end; i++) {
+			temp = data[i];
+
+			for (int k = start; k < i; k++) {
+				if (temp < data[k]) {
+					shift(data,k,i);
+					data[k]=temp;
+					break;
+				}
+			}
+			//System.out.println(Arrays.toString(data));
+
+		}
+
+	}
+	public static void shift(int[] data, int marker, int end) {
+		for (int i=end; i >marker; i--) {
+			data[i]= data[i-1];
+		}
+	}
+
 	public static void main(String args[]) {
 		int[] a = {-200, 2, 5, 1, -100, 7, 0, 8, 99, 7, 8,1000};
-		int[] b = new int[10000000];
+		int[] b = new int[1000000];
+		//int[] d = new int[80];
 		Random c = new Random();
 		for (int i = 0; i < b.length; i++) {
-			b[i] = c.nextInt();
+			b[i] = c.nextInt()%100;
+			//d[i] = b[i];
 		}
 		//ystem.out.println(Arrays.toString(a));
 		//Merge.merge(a, 0, 4, 9);
@@ -75,6 +112,8 @@ public class Merge {
 		long stopTime = System.currentTimeMillis();
 		System.out.println(stopTime - startTime);
 
-		//System.out.println(Arrays.toString(a));
+
+		//Merge.insertionSort(a, 0, a.length-1);
+		//System.out.println(Arrays.toString(b));
 	}
 }
