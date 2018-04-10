@@ -28,11 +28,11 @@ public class MyLinkedList {
 
 	public void add(int index, Integer value) {
 
-		if (index > size-1) {
-			throw new ArrayIndexOutOfBoundsException();
+		if (index > size || index < 0) {
+			throw new IndexOutOfBoundsException();
 		}
 
-		if (index == size - 1) {
+		if (index == size ) {
 			add(value);
 			return;
 		}
@@ -81,13 +81,18 @@ public class MyLinkedList {
 
 				if (c == 0) {
 					first = first.getNext();
+					first.setPrev(null);
+					size-=1;
 				}
 
-				if (c == size-1) {
+				else if (c == size-1) {
 					last = last.getPrev();
+					last.setNext(null);
+					size-=1;
 				}
-
-				remove(c);
+				else {
+					remove(c);
+				}
 				return true;
 			}
 			c+=1;
@@ -150,6 +155,7 @@ public class MyLinkedList {
 			temp.setValue(0);
 			temp = temp.getNext();
 		}
+		size = 0;
 	}
 
 	public String toString() {
