@@ -1,15 +1,18 @@
 
-public class MyLinkedList {
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+public class MyLinkedListImproved<T> implements Iterable<T> {
 
 	Node first;
 	Node last;
 	int size;
 
-	public MyLinkedList() {
+	public MyLinkedListImproved() {
 		size = 0;
 	}
 
-	public boolean add(Integer value) {
+	public boolean add(T value) {
 
 		if (size == 0) {
 			Node a = new Node(null,null,value);
@@ -26,7 +29,7 @@ public class MyLinkedList {
 		return true;
 	}
 
-	public void add(int index, Integer value) {
+	public void add(int index, T value) {
 
 		if (index > size-1) {
 			throw new ArrayIndexOutOfBoundsException();
@@ -70,7 +73,7 @@ public class MyLinkedList {
 		return temp;
 	}
 
-	public boolean remove(Integer value) {
+	public boolean remove(T value) {
 
 		int c = 0;
 		Node temp = first;
@@ -96,7 +99,7 @@ public class MyLinkedList {
 		return false;
 	}
 
-	public Integer remove(int index) {
+	public T remove(int index) {
 
 		if (index >= size || index < 0) {
 			throw new IndexOutOfBoundsException();
@@ -106,7 +109,7 @@ public class MyLinkedList {
 		Node temp2 = temp.getPrev();
 		Node temp3 = temp.getNext();
 
-		int original = temp.getValue();
+		T original = temp.getValue();
 
 		if (temp2 != null) {
 			temp2.setNext(temp3);
@@ -127,7 +130,7 @@ public class MyLinkedList {
 		return original;
 	}
 
-	public int indexOf(Integer value) {
+	public int indexOf(T value) {
 
 		int c = 0;
 		Node temp = first;
@@ -147,7 +150,7 @@ public class MyLinkedList {
 	public void clear() {
 		Node temp = first;
 		while (temp != null) {
-			temp.setValue(0);
+			temp.setValue(null);
 			temp = temp.getNext();
 		}
 	}
@@ -175,7 +178,7 @@ public class MyLinkedList {
 		return ans + "]";
 	}
 
-	public Integer get(int index) {
+	public T get(int index) {
 
 		if (index >= size || index < 0) {
 			throw new IndexOutOfBoundsException();
@@ -184,7 +187,7 @@ public class MyLinkedList {
 		return getNode(index).getValue();
 	}
 
-	public Integer set(int index,int newValue) {
+	public T set(int index,T newValue) {
 
 		if (index >= size || index < 0) {
 			throw new IndexOutOfBoundsException();
@@ -192,7 +195,7 @@ public class MyLinkedList {
 
 		Node ntemp = getNode(index);
 
-		int temp = ntemp.getValue();
+		T temp = ntemp.getValue();
 
 
 		ntemp.setValue(newValue);
@@ -203,14 +206,44 @@ public class MyLinkedList {
 		return size;
 	}
 
+	public Iterator<T> iterator(){
+		return new MyIterator();
+	}
 
+	// Iterator Class
+
+	public class MyIterator implements Iterator<T>{
+
+		private Node current = first;
+		private int count = 0;
+
+		public boolean hasNext() {
+			return (current.getNext() != null);
+		}
+
+		public T next() {
+			if (!hasNext()) {
+                throw new NoSuchElementException();
+			}
+            else {
+            		if (count == 0) {
+            			T temp = current.data;
+                		count +=1;
+                		return temp;
+            		}
+            		current = current.next;
+            		return current.data;
+            }
+		}
+
+	}
 	// Node Class
 
 	private class Node{
 		Node next,prev;
-		int data;
+		T data;
 
-		public Node(Node c,Node a, int b) {
+		public Node(Node c,Node a, T b) {
 			next = c;
 			prev = a;
 			data = b;
@@ -238,12 +271,12 @@ public class MyLinkedList {
 		}
 
 
-		private void setValue(int input) {
+		private void setValue(T input) {
 			data=input;
 		}
 
 		public String toString() {
-			return Integer.toString(data);
+			return data+"";
 		}
 
 		private Node getNext() {
@@ -254,7 +287,7 @@ public class MyLinkedList {
 			return prev;
 		}
 
-		private int getValue() {
+		private T getValue() {
 			return data;
 		}
 	}
@@ -262,15 +295,32 @@ public class MyLinkedList {
 	public static void main(String[] args) {
 
 		int[] test = {0,6,2,9,2,0,0,1};
-		MyLinkedList a = new MyLinkedList();
+		String[] tests = {"hi","there","programmer"};
+		MyLinkedListImproved<Integer> a = new MyLinkedListImproved<>();
+		MyLinkedListImproved<String> b = new MyLinkedListImproved<>();
 
 		for (int x : test) {
 			a.add(x);
 		}
 
-		System.out.println(a.toString());
+		for (String x : tests) {
+			b.add(x);
+		}
 
-		Integer val = new Integer(0);
+		System.out.println(a);
+		System.out.println(b);
+
+		for (Integer x : a) {
+			System.out.println(x);
+		}
+
+		for (String x : b) {
+			System.out.println(x);
+		}
+
+		//System.out.println(a.toString());
+
+		//Integer val = new Integer(0);
 
 		//Remove Tests
 		/*
