@@ -2,7 +2,7 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class MyLinkedListImproved<T> implements Iterable<T> {
+public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T> {
 
 	Node first;
 	Node last;
@@ -31,8 +31,8 @@ public class MyLinkedListImproved<T> implements Iterable<T> {
 
 	public void add(int index, T value) {
 
-		if (index > size || index < 0) {
-			throw new IndexOutOfBoundsException();
+		if (index > size-1) {
+			throw new ArrayIndexOutOfBoundsException();
 		}
 
 		if (index == size - 1) {
@@ -59,7 +59,7 @@ public class MyLinkedListImproved<T> implements Iterable<T> {
 
 	}
 
-	private Node getNode(int index) {
+	public Node getNode(int index) {
 		int c = 0;
 		Node temp = first;
 
@@ -84,18 +84,13 @@ public class MyLinkedListImproved<T> implements Iterable<T> {
 
 				if (c == 0) {
 					first = first.getNext();
-					first.setPrev(null);
-					size-=1;
 				}
 
-				else if (c == size-1) {
+				if (c == size-1) {
 					last = last.getPrev();
-					last.setNext(null);
-					size-=1;
 				}
-				else{
-					remove(c);
-				}
+
+				remove(c);
 				return true;
 			}
 			c+=1;
@@ -153,11 +148,9 @@ public class MyLinkedListImproved<T> implements Iterable<T> {
 	}
 
 	public void clear() {
-		Node temp = first;
-		while (temp != null) {
-			temp.setValue(null);
-			temp = temp.getNext();
-		}
+		first = null;
+		last = null;
+		size = 0;
 	}
 
 	public String toString() {
@@ -183,6 +176,27 @@ public class MyLinkedListImproved<T> implements Iterable<T> {
 		return ans + "]";
 	}
 
+	public String toStringRev() {
+		String ans = "[";
+		Node temp = last;
+
+		while (temp != null) {
+
+			Node a = temp.getPrev();
+
+			if (a != null) {
+				ans += temp.getValue() + ", ";
+			}
+
+			else {
+				ans += temp.getValue();
+			}
+
+			temp = a;
+		}
+
+		return ans + "]";
+	}
 	public T get(int index) {
 
 		if (index >= size || index < 0) {
@@ -242,6 +256,7 @@ public class MyLinkedListImproved<T> implements Iterable<T> {
 		}
 
 	}
+
 	// Node Class
 
 	private class Node{
@@ -297,17 +312,110 @@ public class MyLinkedListImproved<T> implements Iterable<T> {
 		}
 	}
 
+	public int max() {
+
+		if (size == 0) {
+			return -1;
+		}
+
+		int index = 0;
+		T data = first.getValue();
+		Node val = first.getNext();
+
+		for (int i = 1; i < size; i++) {
+			if (val.getValue().compareTo(data) > 0) {
+				data = val.getValue();
+				index = i;
+			}
+			val = val.getNext();
+		}
+		return index;
+	}
+
+	public int min() {
+
+		if (size == 0) {
+			return -1;
+		}
+
+		int index = 0;
+		T data = first.getValue();
+		Node val = first.getNext();
+
+		for (int i = 1; i < size; i++) {
+			if (val.getValue().compareTo(data) < 0) {
+				data = val.getValue();
+				index = i;
+			}
+			val = val.getNext();
+		}
+		return index;
+	}
+
+
+	public void reverse() {
+		MyLinkedListImproved<T> ans = new MyLinkedListImproved<>();
+		Node temp = last;
+
+		while (temp != null) {
+
+			Node a = temp.getPrev();
+
+			ans.add(temp.getValue());
+
+			temp = a;
+		}
+		this.first = ans.first;
+		this.last = ans.last;
+
+	}
+
+	public void extend(MyLinkedListImproved<T> data) {
+		if (data.size == 0) {
+			return;
+		}
+		if (this.size == 0) {
+			this.first = data.first;
+			this.size = data.size;
+			this.last = data.last;
+
+			data.clear();
+			return;
+		}
+		//System.out.println(data);
+		this.last.setNext(data.first);
+		this.last = data.last;
+		this.size += data.size;
+
+		data.clear();
+	}
+
+
+
 	public static void main(String[] args) {
 
 		int[] test = {0,6,2,9,2,0,0,1};
-		String[] tests = {"hi","there","programmer"};
+		//int[] test1 = {0, 0, 0, 10000};
+
+		//String[] tests = {"hi","there","programmer"};
 		MyLinkedListImproved<Integer> a = new MyLinkedListImproved<>();
-		MyLinkedListImproved<String> b = new MyLinkedListImproved<>();
+		//MyLinkedListImproved<Integer> c = new MyLinkedListImproved<>();
+
+		//MyLinkedListImproved<String> b = new MyLinkedListImproved<>();
 
 		for (int x : test) {
 			a.add(x);
 		}
+		/*
+		for (int y : test1) {
+			c.add(y);
+		}
+		*/
+		a.reverse();
+		//a.extend(c);
 
+		System.out.println(a);
+		/*
 		for (String x : tests) {
 			b.add(x);
 		}
@@ -322,6 +430,10 @@ public class MyLinkedListImproved<T> implements Iterable<T> {
 		for (String x : b) {
 			System.out.println(x);
 		}
+		System.out.println(a.max());
+		System.out.println(a.min());
+		*/
+
 
 		//System.out.println(a.toString());
 
