@@ -4,6 +4,9 @@ import java.util.Random;
 public class Sorts {
 
 		public static void radixH(MyLinkedListImproved<Integer> data) {
+			if(data.size <= 1 ){
+				return;
+			}
 			int numT = Integer.toString(data.get(data.max())).length();
 
 			@SuppressWarnings("unchecked")
