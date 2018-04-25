@@ -43,7 +43,7 @@ public class ExpressionTree {
 	    else {
 	    		String a = getLeft().toStringPrefix();
 	    		String b = getRight().toStringPrefix();
-	    		return getOp() + " "+ a + " "+ b + " ";
+	    		return getOp() + " "+ a + " "+ b;
 	    }
 	  }
 
