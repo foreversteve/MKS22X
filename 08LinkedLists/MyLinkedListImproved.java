@@ -31,15 +31,22 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 
 	public void add(int index, T value) {
 
-		if (index > size-1) {
+		if (index > size  || index < 0) {
 			throw new ArrayIndexOutOfBoundsException();
 		}
 
-		if (index == size - 1) {
+		if (index == size) {
 			add(value);
 			return;
 		}
 
+		else if (index == 0) {
+			Node temp = first;
+		    first = new Node(null, temp, value);
+		    first.setNext(temp);
+		    size+=1;
+		}
+		else {
 		Node temp = getNode(index);
 		Node temp2 = temp.getPrev();
 
@@ -51,12 +58,8 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 
 		temp.setPrev(a);
 
-		if (index == 0) {
-			first = a;
-		}
-
 		size+=1;
-
+		}
 	}
 
 	public Node getNode(int index) {
@@ -404,14 +407,14 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 		//MyLinkedListImproved<String> b = new MyLinkedListImproved<>();
 
 		for (int x : test) {
-			a.add(x);
+			a.add(a.size,x);
 		}
 		/*
 		for (int y : test1) {
 			c.add(y);
 		}
 		*/
-		a.reverse();
+		//a.reverse();
 		//a.extend(c);
 
 		System.out.println(a);
