@@ -29,7 +29,7 @@ public class Maze{
     		ans[sizeT] = temp0;
     		sizeT+=1;
     }
-    if (x + 1 < maze[0].length && maze[x+1][y] == ' ' || maze[x+1][y] == 'E') {
+    if (x + 1 < maze.length && maze[x+1][y] == ' ' || maze[x+1][y] == 'E') {
     		Location temp1 = new Location(L.getX()+1,L.getY(),L);
     		ans[sizeT] = temp1;
     		sizeT+=1;
@@ -39,7 +39,7 @@ public class Maze{
     		ans[sizeT] = temp2;
     		sizeT+=1;
     }
-    if (y + 1 < maze.length && maze[x][y+1] == ' ' || maze[x][y+1] == 'E') {
+    if (y + 1 < maze[0].length && maze[x][y+1] == ' ' || maze[x][y+1] == 'E') {
     		Location temp3 = new Location(L.getX(),L.getY()+1,L);
     		ans[sizeT] = temp3;
     		sizeT+=1;
@@ -200,10 +200,19 @@ public class Maze{
       }
       Location temp0 = new Location(L.getX()-1,L.getY(),L);
       System.out.println(a.get(temp0.getX(),temp0.getY()));
+
+      System.out.println("--------------------------------");
+
       Location temp1 = new Location(L.getX()+1,L.getY(),L);
       System.out.println(a.get(temp1.getX(),temp1.getY()));
+
+      System.out.println("--------------------------------");
+
       Location temp2 = new Location(L.getX(),L.getY()-1,L);
       System.out.println(a.get(temp2.getX(),temp2.getY()));
+
+      System.out.println("--------------------------------");
+
       Location temp3 = new Location(L.getX(),L.getY()+1,L);
       System.out.println(a.get(temp3.getX(),temp3.getY()));
 

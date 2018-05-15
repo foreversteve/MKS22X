@@ -20,13 +20,13 @@ public class MazeSolver{
 	  //1: DFS
 	  public boolean solve(int mode){
 		  	if(mode == 0){
-		  		//frontier = new FrontierQueue();
+		  		frontier = new FrontierQueue();
 		    }
 		    else if(mode == 1){
 		      frontier = new FrontierStack();
 		    }
 		    else if(mode == 2){
-		      //frontier = new FrontierPriorityQueue();
+		      frontier = new FrontierPriorityQueue();
 		    }
 
 		  	frontier.add(maze.getStart());
@@ -44,11 +44,13 @@ public class MazeSolver{
 		  			//System.out.println(x+" "+y);
 		  			if (maze.get(x, y) == 'E') {
 		  				Location current = temp[i];
-							/*
-		  				while (current.getPrev() != null) {
 
+		  				while (current.getPrev() != null) {
+								maze.set(current.getX(),current.getY(),'@');
+								current = current.getPrev();
+								System.out.println(maze.toStringColor());
 		  				}
-							*/
+
 		  				return true;
 		  			}
 		  			else {
@@ -83,9 +85,9 @@ public class MazeSolver{
 	  }
 
 	  public static void main(String[] args) {
-		  MazeSolver a = new MazeSolver("data2.dat");
+		  MazeSolver a = new MazeSolver("data3.dat");
 		  System.out.println(a.getMaze().toString());
-		  System.out.println(a.solve(1));
+		  System.out.println(a.solve(0));
 		  System.out.println(a.getMaze().toString());
 
 	  }
