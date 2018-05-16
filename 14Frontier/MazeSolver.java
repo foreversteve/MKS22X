@@ -1,5 +1,6 @@
 
 public class MazeSolver{
+
 	  private Maze maze;
 	  private Frontier frontier;
 
@@ -85,9 +86,12 @@ public class MazeSolver{
 	  }
 
 	  public static void main(String[] args) {
-		  MazeSolver a = new MazeSolver("data3.dat");
+		  MazeSolver a = new MazeSolver("data2.dat");
+
+		//	System.out.println(Location.end.getX()+ " " + Location.end.getY());
+
 		  System.out.println(a.getMaze().toString());
-		  System.out.println(a.solve(0));
+		  System.out.println(a.solve(2));
 		  System.out.println(a.getMaze().toString());
 
 	  }

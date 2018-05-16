@@ -120,6 +120,8 @@ public class Maze{
     */
     end = new Location(endr,endc,null);
     start = new Location(startr,startc,null);
+
+    Location.end = end;
   }
 
   public String toStringColor(){
