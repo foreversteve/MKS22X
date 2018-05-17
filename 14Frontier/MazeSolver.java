@@ -27,6 +27,7 @@ public class MazeSolver{
 		      frontier = new FrontierStack();
 		    }
 		    else if(mode == 2){
+					maze.changeAStar(false);
 		      frontier = new FrontierPriorityQueue();
 		    }
 				else if(mode == 3){

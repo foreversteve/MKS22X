@@ -26,11 +26,11 @@ public class Maze{
     int y = L.getY();
 
     int d;
-    if (!setAStar){
-      d = 0;
+    if (setAStar){
+      d = L.getDSF()+1;
     }
     else{
-      d = L.getDSF()+1;
+      d = 0;
     }
 
 

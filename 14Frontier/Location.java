@@ -34,7 +34,7 @@ public class Location implements Comparable<Location>{
     }
 
     public int distance(){
-      return this.getX()-end.getX() + this.getY()-end.getY();
+      return Math.abs(this.getX()-end.getX()) + Math.abs(this.getY()-end.getY());
     }
 
 
