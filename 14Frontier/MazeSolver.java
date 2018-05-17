@@ -95,7 +95,7 @@ public class MazeSolver{
 		//	System.out.println(Location.end.getX()+ " " + Location.end.getY());
 
 		  System.out.println(a.getMaze().toString());
-		  System.out.println(a.solve(2));
+		  System.out.println(a.solve(3));
 		  System.out.println(a.getMaze().toString());
 
 	  }

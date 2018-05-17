@@ -26,54 +26,35 @@ public class Maze{
     int y = L.getY();
 
     int d;
-    d = L.getDSF();
     if (!setAStar){
-
-      if (x - 1 >= 0 && maze[x-1][y] == ' ' || maze[x-1][y] == 'E') {
-    		  Location temp0 = new Location(L.getX()-1,L.getY(),L,0);
-    		    ans[sizeT] = temp0;
-    		      sizeT+=1;
-            }
-      if (x + 1 < maze.length && maze[x+1][y] == ' ' || maze[x+1][y] == 'E') {
-    		  Location temp1 = new Location(L.getX()+1,L.getY(),L,0);
-    		  ans[sizeT] = temp1;
-    		  sizeT+=1;
-      }
-      if (y - 1 >= 0 && maze[x][y-1] == ' ' || maze[x][y-1] == 'E') {
-    		Location temp2 = new Location(L.getX(),L.getY()-1,L,0);
-    		ans[sizeT] = temp2;
-    		sizeT+=1;
-      }
-      if (y + 1 < maze[0].length && maze[x][y+1] == ' ' || maze[x][y+1] == 'E') {
-    		Location temp3 = new Location(L.getX(),L.getY()+1,L,0);
-    		ans[sizeT] = temp3;
-    		sizeT+=1;
-      }
-      return ans;
+      d = 0;
     }
     else{
-      if (x - 1 >= 0 && maze[x-1][y] == ' ' || maze[x-1][y] == 'E') {
-    		  Location temp0 = new Location(L.getX()-1,L.getY(),L,d+1);
-    		    ans[sizeT] = temp0;
-    		      sizeT+=1;
-            }
-      if (x + 1 < maze.length && maze[x+1][y] == ' ' || maze[x+1][y] == 'E') {
-    		  Location temp1 = new Location(L.getX()+1,L.getY(),L,d+1);
-    		  ans[sizeT] = temp1;
-    		  sizeT+=1;
-      }
-      if (y - 1 >= 0 && maze[x][y-1] == ' ' || maze[x][y-1] == 'E') {
-    		Location temp2 = new Location(L.getX(),L.getY()-1,L,d+1);
-    		ans[sizeT] = temp2;
-    		sizeT+=1;
-      }
-      if (y + 1 < maze[0].length && maze[x][y+1] == ' ' || maze[x][y+1] == 'E') {
-    		Location temp3 = new Location(L.getX(),L.getY()+1,L,d+1);
-    		ans[sizeT] = temp3;
-    		sizeT+=1;
-      }
-      return ans;
+      d = L.getDSF()+1;
     }
+
+
+    if (x - 1 >= 0 && maze[x-1][y] == ' ' || maze[x-1][y] == 'E') {
+  		  Location temp0 = new Location(L.getX()-1,L.getY(),L,d);
+  		  ans[sizeT] = temp0;
+    		sizeT+=1;
+    }
+    if (x + 1 < maze.length && maze[x+1][y] == ' ' || maze[x+1][y] == 'E') {
+    		 Location temp1 = new Location(L.getX()+1,L.getY(),L,d);
+    		 ans[sizeT] = temp1;
+    		 sizeT+=1;
+    }
+    if (y - 1 >= 0 && maze[x][y-1] == ' ' || maze[x][y-1] == 'E') {
+    	Location temp2 = new Location(L.getX(),L.getY()-1,L,d);
+    	ans[sizeT] = temp2;
+    	sizeT+=1;
+    }
+    if (y + 1 < maze[0].length && maze[x][y+1] == ' ' || maze[x][y+1] == 'E') {
+    	Location temp3 = new Location(L.getX(),L.getY()+1,L,d);
+    	ans[sizeT] = temp3;
+    	sizeT+=1;
+    }
+    return ans;
   }
 
   public Location getStart(){
