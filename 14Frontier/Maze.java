@@ -10,7 +10,7 @@ public class Maze{
   Location start,end;
   public char[][]maze;
 
-
+  private boolean setAStar;
 
   /*
   YOU MUST COMPLETE THIS METHOD!!!
@@ -24,27 +24,56 @@ public class Maze{
 
     int x = L.getX();
     int y = L.getY();
-    if (x - 1 >= 0 && maze[x-1][y] == ' ' || maze[x-1][y] == 'E') {
-    		Location temp0 = new Location(L.getX()-1,L.getY(),L);
-    		ans[sizeT] = temp0;
-    		sizeT+=1;
-    }
-    if (x + 1 < maze.length && maze[x+1][y] == ' ' || maze[x+1][y] == 'E') {
-    		Location temp1 = new Location(L.getX()+1,L.getY(),L);
-    		ans[sizeT] = temp1;
-    		sizeT+=1;
-    }
-    if (y - 1 >= 0 && maze[x][y-1] == ' ' || maze[x][y-1] == 'E') {
-    		Location temp2 = new Location(L.getX(),L.getY()-1,L);
+
+    int d;
+    d = L.getDSF();
+    if (!setAStar){
+
+      if (x - 1 >= 0 && maze[x-1][y] == ' ' || maze[x-1][y] == 'E') {
+    		  Location temp0 = new Location(L.getX()-1,L.getY(),L,0);
+    		    ans[sizeT] = temp0;
+    		      sizeT+=1;
+            }
+      if (x + 1 < maze.length && maze[x+1][y] == ' ' || maze[x+1][y] == 'E') {
+    		  Location temp1 = new Location(L.getX()+1,L.getY(),L,0);
+    		  ans[sizeT] = temp1;
+    		  sizeT+=1;
+      }
+      if (y - 1 >= 0 && maze[x][y-1] == ' ' || maze[x][y-1] == 'E') {
+    		Location temp2 = new Location(L.getX(),L.getY()-1,L,0);
     		ans[sizeT] = temp2;
     		sizeT+=1;
-    }
-    if (y + 1 < maze[0].length && maze[x][y+1] == ' ' || maze[x][y+1] == 'E') {
-    		Location temp3 = new Location(L.getX(),L.getY()+1,L);
+      }
+      if (y + 1 < maze[0].length && maze[x][y+1] == ' ' || maze[x][y+1] == 'E') {
+    		Location temp3 = new Location(L.getX(),L.getY()+1,L,0);
     		ans[sizeT] = temp3;
     		sizeT+=1;
+      }
+      return ans;
     }
-    return ans;
+    else{
+      if (x - 1 >= 0 && maze[x-1][y] == ' ' || maze[x-1][y] == 'E') {
+    		  Location temp0 = new Location(L.getX()-1,L.getY(),L,d+1);
+    		    ans[sizeT] = temp0;
+    		      sizeT+=1;
+            }
+      if (x + 1 < maze.length && maze[x+1][y] == ' ' || maze[x+1][y] == 'E') {
+    		  Location temp1 = new Location(L.getX()+1,L.getY(),L,d+1);
+    		  ans[sizeT] = temp1;
+    		  sizeT+=1;
+      }
+      if (y - 1 >= 0 && maze[x][y-1] == ' ' || maze[x][y-1] == 'E') {
+    		Location temp2 = new Location(L.getX(),L.getY()-1,L,d+1);
+    		ans[sizeT] = temp2;
+    		sizeT+=1;
+      }
+      if (y + 1 < maze[0].length && maze[x][y+1] == ' ' || maze[x][y+1] == 'E') {
+    		Location temp3 = new Location(L.getX(),L.getY()+1,L,d+1);
+    		ans[sizeT] = temp3;
+    		sizeT+=1;
+      }
+      return ans;
+    }
   }
 
   public Location getStart(){
@@ -118,9 +147,10 @@ public class Maze{
     The start/end Locations may need more information later when we add
     other kinds of frontiers!
     */
-    end = new Location(endr,endc,null);
-    start = new Location(startr,startc,null);
+    end = new Location(endr,endc,null,0);
+    start = new Location(startr,startc,null,0);
 
+    setAStar = false;
     Location.end = end;
   }
 
@@ -191,8 +221,12 @@ public class Maze{
     return ans;
   }
 
+  public void changeAStar(boolean a){
+    setAStar = a;
+  }
+
   public static void main(String[] args){
-      Location L = new Location(5,14,null);
+      Location L = new Location(5,14,null,0);
       Maze a = new Maze("data2.dat");
       Location[] temp = a.getNeighbors(L);
       for (int i = 0; i < 4; i++){
@@ -200,22 +234,22 @@ public class Maze{
           System.out.println(temp[i].getX()+"  "+temp[i].getY());
         }
       }
-      Location temp0 = new Location(L.getX()-1,L.getY(),L);
+      Location temp0 = new Location(L.getX()-1,L.getY(),L,L.getDSF());
       System.out.println(a.get(temp0.getX(),temp0.getY()));
 
       System.out.println("--------------------------------");
 
-      Location temp1 = new Location(L.getX()+1,L.getY(),L);
+      Location temp1 = new Location(L.getX()+1,L.getY(),L,L.getDSF());
       System.out.println(a.get(temp1.getX(),temp1.getY()));
 
       System.out.println("--------------------------------");
 
-      Location temp2 = new Location(L.getX(),L.getY()-1,L);
+      Location temp2 = new Location(L.getX(),L.getY()-1,L,L.getDSF());
       System.out.println(a.get(temp2.getX(),temp2.getY()));
 
       System.out.println("--------------------------------");
 
-      Location temp3 = new Location(L.getX(),L.getY()+1,L);
+      Location temp3 = new Location(L.getX(),L.getY()+1,L,L.getDSF());
       System.out.println(a.get(temp3.getX(),temp3.getY()));
 
   }

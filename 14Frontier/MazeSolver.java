@@ -29,6 +29,10 @@ public class MazeSolver{
 		    else if(mode == 2){
 		      frontier = new FrontierPriorityQueue();
 		    }
+				else if(mode == 3){
+					frontier = new FrontierPriorityQueue();
+					maze.changeAStar(true);
+				}
 
 		  	frontier.add(maze.getStart());
 
@@ -86,7 +90,7 @@ public class MazeSolver{
 	  }
 
 	  public static void main(String[] args) {
-		  MazeSolver a = new MazeSolver("data2.dat");
+		  MazeSolver a = new MazeSolver("data5.dat");
 
 		//	System.out.println(Location.end.getX()+ " " + Location.end.getY());
 
