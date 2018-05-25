@@ -63,7 +63,7 @@ public class MazeSolver{
 		  				frontier.add(temp[i]);
 		  				maze.set(x, y, '?');
 		  				System.out.println(maze.toStringColor());
-							System.out.println(temp[i].getX()+"    "+ temp[i].getY());
+							//System.out.println(temp[i].getX()+"    "+ temp[i].getY());
 		  			}
 		  		}
 
@@ -91,12 +91,12 @@ public class MazeSolver{
 	  }
 
 	  public static void main(String[] args) {
-		  MazeSolver a = new MazeSolver("data5.dat");
+		  MazeSolver a = new MazeSolver("data6.dat");
 
 		//	System.out.println(Location.end.getX()+ " " + Location.end.getY());
 
 		  System.out.println(a.getMaze().toString());
-		  System.out.println(a.solve(3));
+		  System.out.println(a.solve(2));
 		  System.out.println(a.getMaze().toString());
 
 	  }
