@@ -54,7 +54,7 @@ public class MazeSolver{
 		  				while (current.getPrev() != null) {
 								maze.set(current.getX(),current.getY(),'@');
 								current = current.getPrev();
-								System.out.println(maze.toStringColor());
+								//System.out.println(maze.toStringColor());
 		  				}
 
 		  				return true;
@@ -62,7 +62,7 @@ public class MazeSolver{
 		  			else {
 		  				frontier.add(temp[i]);
 		  				maze.set(x, y, '?');
-		  				System.out.println(maze.toStringColor());
+		  				//System.out.println(maze.toStringColor());
 							//System.out.println(temp[i].getX()+"    "+ temp[i].getY());
 		  			}
 		  		}
@@ -70,7 +70,7 @@ public class MazeSolver{
 		  		if (maze.get(t.getX(),t.getY() ) != 'S') {
 		  			maze.set(t.getX(),t.getY(),'.');
 		  		}
-		  		System.out.println(maze.toStringColor());
+		  		//System.out.println(maze.toStringColor());
 		  	}
 	    //initialize your frontier
 	    //while there is stuff in the frontier:
@@ -91,7 +91,7 @@ public class MazeSolver{
 	  }
 
 	  public static void main(String[] args) {
-		  MazeSolver a = new MazeSolver("data6.dat");
+		  MazeSolver a = new MazeSolver("data3.dat");
 
 		//	System.out.println(Location.end.getX()+ " " + Location.end.getY());
 
